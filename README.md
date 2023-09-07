@@ -33,10 +33,13 @@ print(user.password.iterations)  # 100000
 print(user.password.salt)  # b"\x07\xcfg\x0ec\xa6D\xea\xae\x03S\xa1\xfcz\xaew\x02\x8b\xf1\xe5\xaf\x83n&\x87'\xcdRi!\xd9\xe7"
 print(user.password.hash)  # b'qV\xd3\x81\x113:*"\x05\xba\x12Xb\x04\xeb\x08Sn\x08Z\x9f\x89\xa50~\xa0\xb4\xbd.\xc6\x18"\xf9l\xeds\xbc\xc2B\xa7\xef\xa1\x8a\x7f3\xc1u\x17d\xce\xf2\x98+l\x86\xb7\x1c\xb4\xf0\x07t8\xc9'
 ```
+and be able to validate a password against different criteria
+to ensure a password is safe.
 ```python
-from passwordlib.validator import PasswordValidator, rules
+from passwordlib.validator import PasswordValidator
 
 validator = PasswordValidator("my_secret")
+print(validator.is_valid)  # False
 print(validator.is_secure)  # False
 print(validator.score)  # 4
 
@@ -47,5 +50,20 @@ print(validator.contains_symbols)  # False
 print(validator.length)  # 9
 print(validator.too_short)  # False
 print(validator.max_consecutive)  # 1
-print(validator.is_common)  # False
+print(validator.is_commonly_used)  # False
 ```
+
+# Roadmap
+
+- [ ] passwordlib
+  - [X] passwordlib.util
+    - [X] def hashing
+    - [X] def comparing
+    - [X] def dumping
+    - [X] def loading
+  - [ ] passwordlib.attr
+    - [ ] class PasswordAttribute
+  - [ ] passwordlib.validator
+    - [ ] class PasswordValidator 
+    - [ ] passwordlib.validator.rules
+- [ ] Documentation
