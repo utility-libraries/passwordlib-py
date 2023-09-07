@@ -44,6 +44,7 @@ setup(
         "Topic :: Security",
         "Topic :: Utilities",
     ],
+    include_package_data=True,
     install_requires=[],
     test_suite="tests",
 )
