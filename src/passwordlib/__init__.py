@@ -32,3 +32,6 @@ __email__ = None
 __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to verify, hash, compare and more for passwords"
 from .__version__ import __version__, __version_info__
+
+from . import config
+from . import util
