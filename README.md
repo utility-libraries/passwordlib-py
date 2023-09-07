@@ -48,22 +48,44 @@ print(is_commonly_used("TifnedjothUj"))  # False
 ```
 and be able to validate a password against different criteria
 to ensure a password is safe.
+
 ```python
-from passwordlib.validator import PasswordValidator
+from passwordlib.analyzer import Analyzer
 
-validator = PasswordValidator("my_secret")
-print(validator.is_valid)  # False
-print(validator.is_secure)  # False
-print(validator.score)  # 4
 
-print(validator.contains_lowercase)  # True
-print(validator.contains_uppercase)  # False
-print(validator.contains_numbers)  # False
-print(validator.contains_symbols)  # False
-print(validator.length)  # 9
-print(validator.too_short)  # False
-print(validator.max_consecutive)  # 1
-print(validator.is_commonly_used)  # False
+# may not seem safe at first, but think:
+# 9 digits,lowercase and symbols, not commonly used and no repeating characters
+result = Analyzer("my_secret")
+print(result.is_secure)  # True
+print(result.is_highly_secure)  # False
+print(result.score)  # 5
+
+print(result.contains_lowercase)  # True
+print(result.contains_uppercase)  # False
+print(result.contains_digits)  # False
+print(result.contains_symbols)  # True
+print(result.length)  # 9
+print(result.max_consecutive_character)  # 1
+print(result.is_commonly_used)  # False
+
+r = Analyzer("password")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 0 False False
+r = Analyzer("123456")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 0 False False
+r = Analyzer("matrix")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 0 False False
+r = Analyzer("password-library")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 7 True False
+r = Analyzer("TifnedjothUj")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 6 True False
+r = Analyzer("passwoooooooooooooord")
+print(r.score, r.is_secure, r.is_highly_secure)
+# 1 False False
 ```
 
 ## Roadmap
@@ -78,6 +100,8 @@ print(validator.is_commonly_used)  # False
     - [ ] class PasswordAttribute
   - [ ] passwordlib.commonly_used
     - [ ] def is_common_password
+  - [X] passwordlib.Analyzer
+    - [X] class Analyzer
   - [ ] passwordlib.validator
     - [ ] class PasswordValidator 
     - [ ] passwordlib.validator.rules
