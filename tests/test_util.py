@@ -8,7 +8,7 @@ import unittest
 
 class TestUtil(unittest.TestCase):
     def test_import_util(self):
-        from passwordlib import util  # noqa
+        import passwordlib.util  # noqa
 
     def test_salt_generation(self):
         from passwordlib.util import generate_salt

@@ -8,7 +8,7 @@ import unittest
 
 class TestAttribute(unittest.TestCase):
     def test_import(self):
-        from passwordlib import attr # noqa
+        import passwordlib.attr # noqa
 
     def test_set(self):
         from passwordlib.attr import PasswordAttribute
