@@ -44,7 +44,10 @@ setup(
         "Topic :: Security",
         "Topic :: Utilities",
     ],
-    include_package_data=True,
+    package_data={
+        # If any package contains *.txt files, include them:
+        '': ['*.txt'],
+    },
     install_requires=[],
     test_suite="tests",
 )
