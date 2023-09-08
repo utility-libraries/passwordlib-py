@@ -4,6 +4,8 @@ r"""
 
 """
 import re
+import math
+import typing as t
 from functools import cached_property
 
 
@@ -14,19 +16,56 @@ _RE_SYMBOLS = re.compile(r"[^a-zA-Z0-9]")
 
 
 class Analyzer:
+    r"""
+    analyze the given password for different criteria
+    """
+
     def __init__(self, password: str):
         self._password = password
 
     @cached_property
     def is_secure(self) -> bool:
+        r"""
+        means not easily guessable (but still possible)
+        """
         return self.score >= 5
 
     @cached_property
     def is_highly_secure(self) -> bool:
+        r"""
+        means it should be guessed in a reasonable time
+        """
         return self.score >= 8
 
     @cached_property
+    def hardcoded_secure(self) -> bool:
+        r"""
+        hardcoded way to ensure a password is safe by checking the following criteria
+        - not commonly used
+        - at least 8 characters
+        - more than 5 different characters
+        - at least 3 of lowercase, uppercase, digits or symbols
+        - max consecutive number of a character is 2
+        """
+        if self.is_commonly_used:
+            return False
+        if self.length < 8 or self.charset_length <= 4:
+            return False
+        if (self.contains_lowercase + self.contains_uppercase + self.contains_digits + self.contains_symbols) < 3:
+            return False
+        if self.max_consecutive_character > 3:
+            return False
+        return True
+
+    @cached_property
     def score(self) -> int:
+        r"""
+        calculate a score for the password in consideration of
+        - type of characters (lowercase, uppercase, digits and symbols)
+        - the length of the password
+        - the variety of characters
+        - the max number of consecutive characters
+        """
         if self.length < 4 or self.is_commonly_used:
             return 0
         score = 0.0
@@ -34,9 +73,10 @@ class Analyzer:
         score += self.contains_uppercase
         score += self.contains_digits
         score += self.contains_symbols
-        score += self.length * 0.33
-        score -= (self.max_consecutive_character - 1) * 0.5
-        return max(0, round(score))
+        score += self.length * 0.25
+        score += (self.charset_length - 4) * 0.2
+        score -= (self.max_consecutive_character - 2) * 0.5
+        return max(0, math.floor(score))
 
     @property
     def password(self) -> str:
@@ -61,6 +101,14 @@ class Analyzer:
     @cached_property
     def length(self) -> int:
         return len(self.password)
+
+    @cached_property
+    def charset(self) -> t.Set[str]:
+        return set(self.password)
+
+    @cached_property
+    def charset_length(self) -> int:
+        return len(self.charset)
 
     @cached_property
     def max_consecutive_character(self) -> int:
