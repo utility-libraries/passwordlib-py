@@ -97,9 +97,9 @@ print(r.score, r.is_secure, r.is_highly_secure)
     - [X] def dumping
     - [X] def loading
   - [X] passwordlib.attr
-    - [ ] class PasswordAttribute
-  - [ ] passwordlib.commonly_used
-    - [ ] def is_common_password
+    - [X] class PasswordAttribute
+  - [X] passwordlib.commonly_used
+    - [X] def is_common_password
   - [X] passwordlib.Analyzer
     - [X] class Analyzer
   - [ ] passwordlib.validator
