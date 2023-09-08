@@ -19,7 +19,7 @@ import io
 import typing as t
 
 
-__all__ = ['dumps', 'loads', 'extract_algorythm', 'extract_iterations', 'extract_salt', 'extract_hashed']
+__all__ = ['dumps', 'loads', 'Loaded', 'extract_algorythm', 'extract_iterations', 'extract_salt', 'extract_hashed']
 
 
 class SizeBytes:

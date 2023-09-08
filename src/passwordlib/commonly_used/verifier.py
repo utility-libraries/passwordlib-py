@@ -10,6 +10,11 @@ COMMON_PASSWORDS = set()
 
 
 def init():
+    r"""
+    load the password-list into the memory
+
+    (normally you don't have to call this method yourself)
+    """
     global COMMON_PASSWORDS
     if len(COMMON_PASSWORDS):
         return
@@ -20,5 +25,8 @@ def init():
 
 
 def is_commonly_used(password: str) -> bool:
+    r"""
+    checks whether a password is commonly used or not
+    """
     init()
     return password in COMMON_PASSWORDS
