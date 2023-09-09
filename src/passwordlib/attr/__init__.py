@@ -3,4 +3,5 @@
 r"""
 
 """
+from .password_bytes import PasswordBytes
 from .attribute_class import PasswordAttribute

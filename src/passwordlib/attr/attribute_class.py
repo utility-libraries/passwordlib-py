@@ -5,6 +5,7 @@ r"""
 """
 import typing as t
 from .. import util
+from .password_bytes import PasswordBytes
 
 
 class PasswordAttribute:
@@ -57,11 +58,11 @@ class PasswordAttribute:
         elif isinstance(value, (str, bytes)):
             dumped = util.hash_password(password=value, algorithm=self._algorithm,
                                         iterations=self._iterations, salt=self._salt)
-            setattr(instance, self._instance_attribute_name, dumped)
+            setattr(instance, self._instance_attribute_name, PasswordBytes(dumped))
         else:
             raise TypeError(f"Value of type {type(value)} is not password-hashable")
 
-    def __get__(self, instance, owner) -> t.Optional[bytes]:
+    def __get__(self, instance, owner) -> t.Optional[PasswordBytes]:
         attr = self._instance_attribute_name
         if not hasattr(instance, attr):
             return None
