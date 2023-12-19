@@ -7,7 +7,7 @@ Just run `pip install password-library`
 
 ## Example usage
 
-passwordlib should offer an easy interface to create password-hashes
+passwordlib offers an easy interface to create password-hashes
 ```python
 from passwordlib import util as pwutil
 
@@ -21,22 +21,35 @@ print(pwutil.extract_iterations(hashed))  # 100_000
 print(pwutil.extract_salt(hashed))  # b'...'
 print(pwutil.extract_hashed(hashed))  # b'...'
 ```
-it should also offer
+you can also configure the algorithms or number of iterations
+```python
+from passwordlib import util as pwutil, config as pwconfig
+
+# either globally
+pwconfig.DEFAULT_ALGORITHM = "md5"
+pwconfig.DEFAULT_ITERATIONS = 1_000_000
+pwconfig.DEFAULT_SALT_LENGTH = 64
+
+# or per instance
+pwutil.hash_password(
+  password='password',
+  algorithm="md5", iterations=1_000_000, salt_length=64,
+)
+```
+it also offers the `PasswordAttribute` class to automatically hash attributes on objects
 ```python
 from passwordlib.attr import PasswordAttribute
-
 
 class User:
     name: str
     password = PasswordAttribute()
-
 
 user = User()
 print(user.password)  # None
 user.password = "secret"
 print(user.password)  # b'\x06sha256\x00\x01\x86\xa0\x00 \x07\xcfg\x0ec\xa6D\xea\xae\x03S\xa1\xfcz\xaew\x02\x8b\xf1\xe5\xaf\x83n&\x87'\xcdRi!\xd9\xe7\x00@qV\xd3\x81\x113:*"\x05\xba\x12Xb\x04\xeb\x08Sn\x08Z\x9f\x89\xa50~\xa0\xb4\xbd.\xc6\x18"\xf9l\xeds\xbc\xc2B\xa7\xef\xa1\x8a\x7f3\xc1u\x17d\xce\xf2\x98+l\x86\xb7\x1c\xb4\xf0\x07t8\xc9'
 ```
-check if a password is commonly used
+you can also check if a password is commonly used
 ```python
 from passwordlib.commonly_used import is_commonly_used
 
@@ -68,6 +81,19 @@ print(result.length)  # 9
 print(result.max_consecutive_character)  # 1
 print(result.is_commonly_used)  # False
 
+# you can do such a check here:
+number_of_security_features = sum((
+  result.contains_lowercase,
+  result.contains_uppercase,
+  result.contains_digits,
+  result.contains_symbols,
+  result.length >= 8,
+  result.charset_length > (result.length // 2)
+))
+if number_of_security_features < 5 or result.is_commonly_used:
+  raise PasswordTooWeakError(result.password)
+
+# here are more examples for you
 r = Analyzer("password")
 print(r.score, r.is_secure, r.is_highly_secure)
 # 0 False False

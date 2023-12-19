@@ -23,6 +23,9 @@ __all__ = ['dumps', 'loads', 'Loaded', 'extract_algorythm', 'extract_iterations'
 
 
 class SizeBytes:
+    r"""
+    configure how many bytes are used to save the number of bytes for {ALGORITHM|ITERATIONS|SALT|HASH}
+    """
     ALGORITHM: int = 1
     ITERATIONS: int = 4
     SALT: int = 2
