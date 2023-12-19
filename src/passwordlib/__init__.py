@@ -31,7 +31,9 @@ __maintainer__ = "PlayerG9"
 __email__ = None
 __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to verify, hash, compare and more for passwords"
-from .__version__ import __version__, __version_info__
+__version_info__ = (0, 4, 0)
+__version__ = '.'.join(str(_) for _ in __version_info__)
 
 from . import config
 from . import util
+from .util import hash_password, compare_password
