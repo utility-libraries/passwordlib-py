@@ -12,7 +12,7 @@ from .. import config
 __all__ = ['generate_salt', 'get_password_bytes', 'get_algorithm', 'get_iterations', 'get_salt']
 
 
-def generate_salt(*, length: int = None):
+def generate_salt(length: int = None):
     r"""
     generate a random salt
 
@@ -52,11 +52,12 @@ def get_iterations(iterations: t.Optional[int] = None) -> int:
     return iterations
 
 
-def get_salt(salt: t.Optional[bytes] = None) -> bytes:
+def get_salt(salt: t.Optional[bytes] = None, *, salt_length: int = None) -> bytes:
     r"""
     return the salt or returns a generated one
 
     :param salt: your salt
+    :param salt_length: length of the salt if it's generated
     """
-    salt = salt or generate_salt()
+    salt = salt or generate_salt(length=salt_length)
     return salt
