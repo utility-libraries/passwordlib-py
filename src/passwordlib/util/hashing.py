@@ -27,15 +27,25 @@ def hash_only(password: t.AnyStr, *, algorithm: str = None, iterations: int = No
     algorithm = fn.get_algorithm(algorithm)
     iterations = fn.get_iterations(iterations)
     salt = fn.get_salt(salt)
-    return hashlib.pbkdf2_hmac(
-        hash_name=algorithm,
-        password=password,
-        salt=salt,
-        iterations=iterations
-    )
+    if algorithm == "scrypt":
+        return hashlib.scrypt(
+            password=password,
+            salt=salt,
+            n=iterations,
+        )
+    else:
+        return hashlib.pbkdf2_hmac(
+            hash_name=algorithm,
+            password=password,
+            salt=salt,
+            iterations=iterations,
+        )
 
 
-def hash_password(password: t.AnyStr, *, algorithm: str = None, iterations: int = None, salt: bytes = None) -> bytes:
+def hash_password(
+        password: t.AnyStr,
+        *, algorithm: str = None, iterations: int = None, salt: bytes = None, salt_length: int = None,
+) -> bytes:
     r"""
     hash the password and return the dumped version of the algorithm, the iterations, the salt and the password-hash
 
@@ -43,12 +53,13 @@ def hash_password(password: t.AnyStr, *, algorithm: str = None, iterations: int 
     :param algorithm: the algorithm to use
     :param iterations: the number of iterations
     :param salt: random salt
+    :param salt_length: length of the salt if it's generated
     :return: the dumped version of the algorithm, the iterations, the salt and the password-hash
     """
     password = fn.get_password_bytes(password)
     algorithm = fn.get_algorithm(algorithm)
     iterations = fn.get_iterations(iterations)
-    salt = fn.get_salt(salt)
+    salt = fn.get_salt(salt, salt_length=salt_length)
     hashed = hash_only(
         password=password,
         algorithm=algorithm,
