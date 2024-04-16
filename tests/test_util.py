@@ -13,8 +13,8 @@ class TestUtil(unittest.TestCase):
     def test_salt_generation(self):
         from passwordlib.util import generate_salt
         self.assertIsInstance(generate_salt(), bytes)
-        self.assertEquals(len(generate_salt(length=32)), 32)
-        self.assertEquals(len(generate_salt(length=64)), 64)
+        self.assertEqual(len(generate_salt(length=32)), 32)
+        self.assertEqual(len(generate_salt(length=64)), 64)
 
     def test_dumping(self):
         from passwordlib.util import (
@@ -43,10 +43,10 @@ class TestUtil(unittest.TestCase):
         dumped = dumps(algorithm=algorithm, iterations=iterations, salt=salt, hashed=hashed)
         loaded = loads(dumped, verify=True)
 
-        self.assertEquals(loaded.algorithm, algorithm)
-        self.assertEquals(loaded.iterations, iterations)
-        self.assertEquals(loaded.salt, salt)
-        self.assertEquals(loaded.hashed, hashed)
+        self.assertEqual(loaded.algorithm, algorithm)
+        self.assertEqual(loaded.iterations, iterations)
+        self.assertEqual(loaded.salt, salt)
+        self.assertEqual(loaded.hashed, hashed)
 
     def test_redumping(self):
         from passwordlib.util import (
@@ -64,7 +64,7 @@ class TestUtil(unittest.TestCase):
         dumped2 = dumps(algorithm=loaded.algorithm, iterations=loaded.iterations,
                         salt=loaded.salt, hashed=loaded.hashed)
 
-        self.assertEquals(dumped, dumped2)
+        self.assertEqual(dumped, dumped2)
 
     def test_extraction(self):
         from passwordlib.util import (
@@ -79,10 +79,10 @@ class TestUtil(unittest.TestCase):
 
         dumped = dumps(algorithm=algorithm, iterations=iterations, salt=salt, hashed=hashed)
 
-        self.assertEquals(algorithm, extract_algorythm(dumped))
-        self.assertEquals(iterations, extract_iterations(dumped))
-        self.assertEquals(salt, extract_salt(dumped))
-        self.assertEquals(hashed, extract_hashed(dumped))
+        self.assertEqual(algorithm, extract_algorythm(dumped))
+        self.assertEqual(iterations, extract_iterations(dumped))
+        self.assertEqual(salt, extract_salt(dumped))
+        self.assertEqual(hashed, extract_hashed(dumped))
 
 
 if __name__ == '__main__':

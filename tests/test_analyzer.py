@@ -50,7 +50,7 @@ class TestValidator(unittest.TestCase):
         from passwordlib.analyzer import Analyzer
 
         result = Analyzer("passswoords")
-        self.assertEquals(result.max_consecutive_character, 3)
+        self.assertEqual(result.max_consecutive_character, 3)
 
     def test_commonly_used(self):
         from passwordlib.analyzer import Analyzer
@@ -62,7 +62,7 @@ class TestValidator(unittest.TestCase):
         from passwordlib.analyzer import Analyzer
 
         result = Analyzer("password")
-        self.assertEquals(result.score, 0)
+        self.assertEqual(result.score, 0)
 
     def test_secure_common(self):
         from passwordlib.analyzer import Analyzer
