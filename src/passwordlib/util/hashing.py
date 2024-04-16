@@ -29,13 +29,14 @@ def hash_only(password: t.AnyStr, *, algorithm: str = None, iterations: int = No
     salt = fn.get_salt(salt)
     if algorithm == "scrypt":
         n = iterations
-        # todo: make r & p configurable
-        r = 8  # maybe 16 better?
-        p = 1  # only one thread
+        from ..config import (
+            SCRYPT_BLOCK_SIZE as R,
+            SCRYPT_PARALLELIZATION as P,
+        )
         return hashlib.scrypt(
             password=password,
             salt=salt,
-            n=n, r=r, p=p, maxmem=128 * n * r * p,
+            n=n, r=R, p=P, maxmem=128 * n * R * P,
             dklen=64,  # 64 bytes => 512 bits
         )
     else:
