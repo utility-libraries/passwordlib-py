@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 # -*- coding=utf-8 -*-
 r"""
 This module uses this list to check if a password in commonly used
