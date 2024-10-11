@@ -1,7 +1,6 @@
-#!/usr/bin/python3
 # -*- coding=utf-8 -*-
 r"""
-various utility functions to generate hashed from password and compare them
+core functions
 """
 from .functions import (
     generate_salt,

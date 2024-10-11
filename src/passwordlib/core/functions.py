@@ -6,7 +6,7 @@ r"""
 import os
 import hashlib
 import typing as t
-from .. import config
+from passwordlib import config
 
 
 __all__ = ['generate_salt', 'get_password_bytes', 'get_algorithm', 'get_iterations', 'get_salt']

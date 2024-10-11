@@ -6,7 +6,7 @@ r"""
 import hmac
 import hashlib
 import typing as t
-from . import functions as fn
+from ..core import functions as fn
 from .dumping import dumps, loads
 
 

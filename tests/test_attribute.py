@@ -11,7 +11,7 @@ class TestAttribute(unittest.TestCase):
         import passwordlib.attr # noqa
 
     def test_set(self):
-        from passwordlib.util import compare_password
+        from passwordlib.core import compare_password
         from passwordlib.attr import PasswordAttribute
 
         class User:

@@ -8,16 +8,17 @@ import unittest
 
 class TestUtil(unittest.TestCase):
     def test_import_util(self):
-        import passwordlib.util  # noqa
+        # noinspection PyUnresolvedReferences
+        import passwordlib.core
 
     def test_salt_generation(self):
-        from passwordlib.util import generate_salt
+        from passwordlib.core import generate_salt
         self.assertIsInstance(generate_salt(), bytes)
         self.assertEqual(len(generate_salt(length=32)), 32)
         self.assertEqual(len(generate_salt(length=64)), 64)
 
     def test_dumping(self):
-        from passwordlib.util import (
+        from passwordlib.core import (
             dumps,
             get_algorithm, get_iterations, get_salt
         )
@@ -31,7 +32,7 @@ class TestUtil(unittest.TestCase):
         self.assertIsInstance(dumped, bytes)
 
     def test_loading(self):
-        from passwordlib.util import (
+        from passwordlib.core import (
             dumps, loads,
             get_algorithm, get_iterations, get_salt
         )
@@ -49,7 +50,7 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(loaded.hashed, hashed)
 
     def test_redumping(self):
-        from passwordlib.util import (
+        from passwordlib.core import (
             dumps, loads,
             get_algorithm, get_iterations, get_salt,
         )
@@ -67,7 +68,7 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(dumped, dumped2)
 
     def test_extraction(self):
-        from passwordlib.util import (
+        from passwordlib.core import (
             dumps,
             extract_algorythm, extract_iterations, extract_salt, extract_hashed,
             get_algorithm, get_iterations, get_salt,

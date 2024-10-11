@@ -3,7 +3,7 @@ r"""
 
 """
 import typing as t
-from .. import util
+from ..core import hash_password
 
 
 class PasswordAttribute:
@@ -54,8 +54,8 @@ class PasswordAttribute:
         if self._allow_reset and value is None:
             self.__delete__(instance=instance)
         elif isinstance(value, (str, bytes)):
-            dumped = util.hash_password(password=value, algorithm=self._algorithm,
-                                        iterations=self._iterations, salt=self._salt)
+            dumped = hash_password(password=value, algorithm=self._algorithm,
+                                   iterations=self._iterations, salt=self._salt)
             setattr(instance, self._instance_attribute_name, dumped)
         else:
             raise TypeError(f"Value of type {type(value)} is not password-hashable")
