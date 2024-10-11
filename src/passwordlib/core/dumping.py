@@ -69,7 +69,7 @@ class Loaded(t.NamedTuple):
     hashed: bytes
 
 
-def loads(dump: bytes, *, verify: bool = False) -> Loaded:
+def loads(dump: bytes, *, verify: bool = True) -> Loaded:
     r"""
     Loads all relevant information about the hashed password from a dump and returns it as a NamedTuple
 
@@ -80,7 +80,7 @@ def loads(dump: bytes, *, verify: bool = False) -> Loaded:
         hashed: bytes
 
     :param dump: the bytes that store all information
-    :param verify: verify
+    :param verify: verifies that the dump contains exactly one password. disable this if you want to save multiple password next to another
     :return:
     """
     stream = io.BytesIO(dump)
