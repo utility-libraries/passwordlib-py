@@ -28,10 +28,16 @@ def hash_only(password: t.AnyStr, *, algorithm: str = None, iterations: int = No
     iterations = fn.get_iterations(iterations)
     salt = fn.get_salt(salt)
     if algorithm == "scrypt":
+        n = iterations
+        from ..config import (
+            SCRYPT_BLOCK_SIZE as R,
+            SCRYPT_PARALLELIZATION as P,
+        )
         return hashlib.scrypt(
             password=password,
             salt=salt,
-            n=iterations,
+            n=n, r=R, p=P, maxmem=128 * n * R * P,
+            dklen=64,  # 64 bytes => 512 bits
         )
     else:
         return hashlib.pbkdf2_hmac(

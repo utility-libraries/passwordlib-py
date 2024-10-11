@@ -1,9 +1,39 @@
 # passwordlib-py
 utility library to verify, hash, compare and more for passwords
 
+<!-- TOC -->
+* [passwordlib-py](#passwordlib-py)
+  * [Installation](#installation)
+  * [Algorithms](#algorithms)
+  * [Example usage](#example-usage)
+  * [Roadmap](#roadmap)
+<!-- TOC -->
+
 ## Installation
 
 Just run `pip install password-library`
+
+## Algorithms
+
+> List of supported algorithms
+
+| Algorythm | Comment    |
+|-----------|------------|
+| sha1      |            |
+| sha224    |            |
+| sha256    |            |
+| sha384    |            |
+| sha512    |            |
+| sha3_224  |            |
+| sha3_256  |            |
+| sha3_384  |            |
+| sha3_512  |            |
+| shake_128 |            |
+| shake_256 |            |
+| blake2b   | Not Tested |
+| blake2s   | Not Tested |
+| md5       |            |
+
 
 ## Example usage
 

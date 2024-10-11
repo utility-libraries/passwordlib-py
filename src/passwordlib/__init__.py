@@ -31,7 +31,7 @@ __maintainer__ = "PlayerG9"
 __email__ = None
 __status__ = "Prototype"  # Prototype, Development, Production
 __description__ = "utility library to verify, hash, compare and more for passwords"
-__version_info__ = (0, 4, 0)
+__version_info__ = (0, 4, 2)
 __version__ = '.'.join(str(_) for _ in __version_info__)
 
 from . import config

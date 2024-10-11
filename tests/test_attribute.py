@@ -19,21 +19,21 @@ class TestAttribute(unittest.TestCase):
             password = PasswordAttribute()
 
         user = User()
-        self.assertEquals(user.password, None)
+        self.assertEqual(user.password, None)
 
         user.password = "secret"
-        self.assertNotEquals(user.password, "secret")
+        self.assertNotEqual(user.password, "secret")
         self.assertTrue(compare_password("secret", user.password))
 
         user.password = None
-        self.assertEquals(user.password, None)
+        self.assertEqual(user.password, None)
 
         user.password = "secret2"
-        self.assertNotEquals(user.password, "secret2")
+        self.assertNotEqual(user.password, "secret2")
         self.assertTrue(compare_password("secret2", user.password))
 
         del user.password
-        self.assertEquals(user.password, None)
+        self.assertEqual (user.password, None)
 
 
 if __name__ == '__main__':
