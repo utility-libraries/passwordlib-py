@@ -9,6 +9,15 @@ import os.path as p
 
 HERE = p.abspath(p.dirname(__file__))
 
+install_requires = []
+
+bcrypt_requires = ["bcrypt"]
+all_requires = [bcrypt_requires]
+
+extras_require = {
+    'bcrypt': bcrypt_requires,
+    'all': all_requires,
+}
 
 setup(
     name='password-library',
@@ -46,6 +55,8 @@ setup(
         # If any package contains *.txt files, include them:
         '': ['*.txt'],
     },
-    install_requires=[],
+    python_requires=">=3.6",
+    install_requires=install_requires,
+    extras_require=extras_require,
     test_suite="tests",
 )
