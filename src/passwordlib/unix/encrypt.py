@@ -6,7 +6,7 @@ import typing as t
 from ..core import functions as fn
 
 
-__all__ = ['encrypt_sha1']
+__all__ = ['encrypt_bcrypt', 'encrypt_sha1']
 
 
 BCRYPT_PREFIX: t.TypeAlias = t.Union[t.Literal[b"2a"], t.Literal[b"2b"]]

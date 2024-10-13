@@ -6,7 +6,7 @@ from ..core import LoadedTuple
 from ..exceptions import *
 
 
-__all__ = ['load_sha1']
+__all__ = ['load_bcrypt', 'load_sha1']
 
 
 def load_bcrypt(dump: str) -> LoadedTuple:
