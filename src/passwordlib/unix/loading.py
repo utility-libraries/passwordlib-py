@@ -11,7 +11,7 @@ __all__ = ['load_bcrypt', 'load_sha1']
 
 def load_bcrypt(dump: str) -> LoadedTuple:
     parts = dump.split("$")
-    if len(parts) == 4: raise PWLibSyntaxError("bad format")
+    if len(parts) != 4: raise PWLibSyntaxError("bad format")
 
     void, prefix, rounds, salt_and_hash = parts
     if void: raise PWLibSyntaxError("dump does not start with '$'")
